@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 // ignore: camel_case_types
 class genderCard extends StatelessWidget {
@@ -21,7 +22,7 @@ class genderCard extends StatelessWidget {
         ),
         Text(
           genderText,
-          style: TextStyle(fontSize: 18.0, color: Colors.grey),
+          style: kTextStyle,
         ),
       ],
     );
