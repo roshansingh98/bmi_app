@@ -5,6 +5,15 @@ import 'package:flutter/widgets.dart';
 import '../components/reusableCardWidget.dart';
 
 class ResultPage extends StatelessWidget {
+  final String bmiResult;
+  final String bmiInterpretation;
+  final String bmiValue;
+
+  const ResultPage(
+      {@required this.bmiResult,
+      @required this.bmiInterpretation,
+      @required this.bmiValue});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,15 +47,15 @@ class ResultPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'Normal',
+                    bmiResult.toUpperCase(),
                     style: kBMITextStyle,
                   ),
                   Text(
-                    '20',
+                    bmiValue,
                     style: kBMINumberStyle,
                   ),
                   Text(
-                    'You are just fine. Go on having a great day.',
+                    bmiInterpretation,
                     style: kBMIOutputTextStyle,
                     textAlign: TextAlign.center,
                   ),
