@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../components/bottomButtonWidget.dart';
+import 'resultPage.dart';
 
-import 'genderCardWidget.dart';
-import 'reusableCardWidget.dart';
-import 'constants.dart';
+import '../components/customCircularButton.dart';
+import '../components/genderCardWidget.dart';
+import '../components/reusableCardWidget.dart';
+import '../constants.dart';
 
 enum GenderType { male, female }
 enum weightCounter { add, subtract }
@@ -18,6 +21,7 @@ class _InputPageState extends State<InputPage> {
   GenderType selectedGender;
   int height = 180;
   int weightValue = 80;
+  int ageValue = 20;
 
   // Color maleButtonColor = inactiveButtonColor;
   // Color femaleButtonColor = inactiveButtonColor;
@@ -47,8 +51,6 @@ class _InputPageState extends State<InputPage> {
         title: Center(
           child: Text(
             'BMI CALCULATOR',
-            textAlign: TextAlign.center,
-            style: TextStyle(),
           ),
         ),
       ),
@@ -92,7 +94,7 @@ class _InputPageState extends State<InputPage> {
                 ),
               ],
             ), //The row to show gender cards
-          ),//Gender Cards
+          ), //Gender Cards
           Expanded(
             child: ReusableCard(
               cardChild: Column(
@@ -144,7 +146,7 @@ class _InputPageState extends State<InputPage> {
               ),
               cardColor: kCardColor,
             ),
-          ),//Height Card
+          ), //Height Card
           Expanded(
             child: Row(
               children: <Widget>[
@@ -202,41 +204,65 @@ class _InputPageState extends State<InputPage> {
                       ],
                     ),
                   ),
-                ),//Weight Card
+                ), //Weight Card
                 Expanded(
                   child: ReusableCard(
                     cardColor: kCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kTextStyle,
+                        ),
+                        Text(
+                          ageValue.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            circularWidget(
+                              iconPassed: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    ageValue--;
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            circularWidget(
+                              iconPassed: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    ageValue++;
+                                  },
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            color: Colors.blue,
-            margin: EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: kBottomContainerHeight,
+          moveToDifferentPage(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ResultPage()));
+            },
+            text: 'CALCULATE',
           ),
         ],
       ),
-    );
-  }
-}
-
-class circularWidget extends StatelessWidget {
-  IconData iconPassed;
-  Function onPressed;
-
-  circularWidget({@required this.iconPassed, @required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(iconPassed),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
-      onPressed: onPressed,
     );
   }
 }
